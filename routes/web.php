@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FactoryController;
+use App\Http\Controllers\FakerController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -16,23 +21,19 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
-
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('seeder/{type}', [FakerController::class, 'index'])
+    ->whereIn('type', ['posts']);
 
 Route::middleware('auth')->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::resource('posts', PostController::class);
+    Route::get('posts/{id}/like', [PostController::class, 'like'])->name('posts.like');
+    Route::post('posts/{id}/comment', [CommentController::class, 'comment'])->name('posts.comment');
+    Route::post('posts/{id}/delete_comments', [CommentController::class, 'delete_comments'])->name('posts.delete_comments');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

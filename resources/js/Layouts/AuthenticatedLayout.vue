@@ -10,6 +10,12 @@ import { Link } from '@inertiajs/vue3';
 const showingNavigationDropdown = ref(false);
 </script>
 
+<style>
+    @import './public/assets/style.css';
+    @import url("https://cdn.jsdelivr.net/npm/bootstrap@4.1.1/dist/css/bootstrap.min.css");
+    @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css");
+</style>
+
 <template>
     <div>
         <div class="min-h-screen bg-gray-100">
@@ -20,7 +26,7 @@ const showingNavigationDropdown = ref(false);
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <Link :href="route('dashboard')">
+                                <Link :href="route('home')">
                                     <ApplicationLogo
                                         class="block h-9 w-auto fill-current text-gray-800"
                                     />
@@ -29,8 +35,8 @@ const showingNavigationDropdown = ref(false);
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                    Dashboard
+                                <NavLink :href="route('home')" :active="route().current('home')">
+                                    Timeline
                                 </NavLink>
                             </div>
                         </div>
@@ -112,8 +118,8 @@ const showingNavigationDropdown = ref(false);
                     class="sm:hidden"
                 >
                     <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                            Dashboard
+                        <ResponsiveNavLink :href="route('home')" :active="route().current('home')">
+                            Timeline
                         </ResponsiveNavLink>
                     </div>
 

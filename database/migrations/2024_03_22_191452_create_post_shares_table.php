@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('post_shares', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->string('image')->nullable();
-            $table->rememberToken();
+            $table->unsignedBigInteger('user_id')->index();
+            $table->unsignedBigInteger('post_id')->index();
+            $table->enum('platform', ['twitter', 'facebook', 'instagram', 'whatsapp', 'telegram'])->default('facebook');
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('post_shares');
     }
 };

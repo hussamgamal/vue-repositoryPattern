@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('post_attachments', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->string('image')->nullable();
-            $table->rememberToken();
+            $table->unsignedBigInteger('post_id')->index();
+            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+            $table->enum('type', ['image', 'video'])->default('image');
+            $table->string('path');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('post_attachments');
     }
 };
