@@ -19,4 +19,4 @@ Platform is multilanguage and user can login using facebook
 
 ### Video 
 
-- **[Vehikl](https://vehikl.com/)**
+- **[Video](https://drive.google.com/file/d/136I4fIxs9E1RsBKM6rn3pRdQu1JxN9zq/view?usp=sharing)**
