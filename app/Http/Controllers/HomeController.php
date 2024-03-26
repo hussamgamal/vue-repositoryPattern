@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Repositories\Interfaces\PostRepositoryInterface;
+use App\Http\Repositories\PostRepository;
 use App\Http\Resources\PostsResourse;
 use App\Models\Post;
 use Inertia\Inertia;
 
 class HomeController extends Controller
 {
+    public function __construct(public PostRepositoryInterface $repo)
+    {
+    }
     public function index()
     {
-        $posts = Post::withCount('views', 'shares', 'likes', 'comments')
-            ->with('comments', 'attachments')
-            ->latest()->paginate(6);
+        $posts = $this->repo->getAll(6);
         $posts = PostsResourse::collection($posts);
         return Inertia::render('Home', get_defined_vars());
     }

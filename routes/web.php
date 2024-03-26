@@ -30,8 +30,8 @@ Route::get('change-locale/{locale?}', [HomeController::class, 'changeLocale'])->
 
 Route::middleware('locale')->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::resource('posts', PostController::class);
     Route::middleware('auth')->group(function () {
-        Route::resource('posts', PostController::class);
         Route::get('posts/{id}/like', [PostController::class, 'like'])->name('posts.like');
         Route::post('posts/{id}/comment', [CommentController::class, 'comment'])->name('posts.comment');
         Route::post('posts/{id}/delete_comments', [CommentController::class, 'delete_comments'])->name('posts.delete_comments');

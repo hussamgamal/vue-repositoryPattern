@@ -2,39 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Repositories\Interfaces\PostRepositoryInterface;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    public function __construct(public Post $repo)
+    public function __construct(private PostRepositoryInterface $repo)
     {
     }
 
     public function comment(Request $request, $id)
     {
         $request->validate(['comment' => 'required']);
-        $this->repo = $this->repo->findOrFail($id);
-        $this->repo->comments()->create([
-            'user_id' => auth()->id(),
-            'comment' => $request->comment
-        ]);
-        return response([
-            'post' => $this->postData()
-        ]);
+        $this->repo->addComment($id);
+        return response(['post' => $this->repo->findById($id)]);
     }
 
     public function delete_comments(Request $request, $id)
     {
-        $this->repo = $this->repo->findOrFail($id);
-        $this->repo->comments()->whereIn('id', $request->comment_ids)->delete();
-        return response([
-            'post' => $this->postData()
-        ]);
-    }
-
-    private function postData()
-    {
-        return (new PostController($this->repo))->postData();
+        $this->repo->deleteComments($id, $request->comment_ids);
+        return response(['post' => $this->repo->findById($id)]);
     }
 }

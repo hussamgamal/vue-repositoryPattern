@@ -7,11 +7,14 @@ export default {
     },
     data() {
         return {
-            post : this.post,
+            post: this.post,
         }
     },
     methods: {
         like(id) {
+            if (!this.$page.props.auth.user) {
+                window.location.href = "/login";
+            }
             axios.get(route('posts.like', this.post.id))
                 .then(response => {
                     this.post = response.data.post;

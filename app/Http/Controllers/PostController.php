@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Repositories\Interfaces\BaseRepositoryInterface;
+use App\Http\Repositories\Interfaces\PostRepositoryInterface;
 use App\Http\Requests\PostRequest;
 use App\Http\Resources\PostsResourse;
 use App\Models\Post;
@@ -9,66 +11,39 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function __construct(public Post $repo)
+    public function __construct(private PostRepositoryInterface $repo)
     {
+        $this->middleware('auth', ['except' => ['index']]);
     }
     public function index()
     {
-        $posts = Post::withCount('views', 'shares', 'likes', 'comments')->with('comments')->latest()->paginate(6);
-        $posts = PostsResourse::collection($posts);
+        $posts = $this->repo->getAll(6);
         return response([
-            'posts' => $posts
+            'posts' => PostsResourse::collection($posts)
         ]);
     }
 
     public function store(PostRequest $request)
     {
-        $this->repo = $this->repo->create([
-            ...$request->validated(),
-            'user_id' => auth()->id()
-        ]);
-        if ($request->file('image')) {
-            $this->repo->attachments()->create([
-                'path' => $request->file('image'),
-                'type' => 'image'
-            ]);
-        }
-        return response(['post' => $this->postData()]);
+        $row = $this->repo->create($request->validated());
+        return response(['post' => $this->repo->findById($row->id)]);
     }
 
-    public function update(PostRequest $request , $id)
+    public function update(PostRequest $request, $id)
     {
-        $this->repo = $this->repo->findOrFail($id);
-        $this->repo->update([
-            ...$request->validated(),
-            'user_id' => auth()->id()
-        ]);
-        if ($request->file('image')) {
-            $this->repo->attachments()->create([
-                'path' => $request->file('image'),
-                'type' => 'image'
-            ]);
-        }
-        return response(['post' => $this->postData()]);
+        $this->repo->update($id, $request->validated());
+        return response(['post' => $this->repo->findById($id)]);
     }
 
-    public function destroy($id){
-        $this->repo->findOrFail($id)->delete();
+    public function destroy($id)
+    {
+        $this->repo->delete($id);
         return response(['status' => 'success']);
     }
 
     public function like($id)
     {
-        $this->repo = $this->repo->findOrFail($id);
-        $is_liked = $this->repo->is_liked;
-        $is_liked ? $this->repo->likes()->detach(auth()->id()) : $this->repo->likes()->attach(auth()->id());
-        return response([
-            'post' => $this->postData()
-        ]);
-    }
-
-    public function postData()
-    {
-        return new PostsResourse($this->repo->refresh()->loadCount('likes', 'comments', 'shares', 'views')->load('comments'));
+        $this->repo->like($id);
+        return response(['post' => $this->repo->findById($id)]);
     }
 }

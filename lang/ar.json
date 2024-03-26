@@ -13,5 +13,6 @@
     "Edit Post": "تعديل البوست",
     "POST" : "نشر",
     "Save Changes" : "حفظ التغيير",
-    "Cancel" : "إلغاء"
+    "Cancel" : "إلغاء",
+    "Delete Checked Comment" : "حذف التعليقات المحددة"
 }
