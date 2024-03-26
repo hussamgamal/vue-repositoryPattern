@@ -1,4 +1,4 @@
-<p align="center"><a target="__blank" href="https://ibb.co/1m9LRRy" target="_blank"><img src="https://i.ibb.co/XCzbFF0/screencapture-localhost-8000-2024-03-27-00-21-05.png" style="max-height:500px" alt="Template"></a></p>
+<p align="center"><a target="__blank" href="https://ibb.co/1m9LRRy" target="_blank"><img src="https://i.ibb.co/XCzbFF0/screencapture-localhost-8000-2024-03-27-00-21-05.png" height="500px" alt="Template"></a></p>
 
 
 ## What i do
