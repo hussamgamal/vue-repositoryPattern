@@ -11,7 +11,7 @@ export default {
             post: this.post,
             showCommentBox: false,
             editClicked: false,
-            showPost : true
+            showPost: true
         }
     },
     components: {
@@ -63,7 +63,7 @@ export default {
                         <small></small></span>
                     <span class="pull-right text-muted" v-if="post.views">{{ post.views }} Views</span>
                 </div>
-                <div class="actions" v-if="post.user.id == $page.props.auth.user.id">
+                <div class="actions" v-if="$page.props.auth.user && post.user.id == $page.props.auth.user.id">
                     <a @click="editClicked = true" href="javascript:;">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                     </a>
@@ -86,7 +86,7 @@ export default {
             <div class="timeline-likes">
                 <div class="stats-right">
                     <!-- <span class="stats-text">{{ post.shares }} Shares</span> -->
-                    <span class="stats-text">{{ post.comments_count }} Comments</span>
+                    <span class="stats-text">{{ post.comments_count }} {{ $t("Comments") }}</span>
                 </div>
                 <div class="stats">
                     <span class="fa-stack fa-fw stats-icon">

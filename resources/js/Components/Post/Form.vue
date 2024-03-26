@@ -49,7 +49,7 @@ export default {
 
         <div class="timeline-time">
             <!-- <span class="date">Today</span> -->
-            <span class="time">{{ this.post ? 'Edit Post' : 'Add New Post' }}</span>
+            <span class="time">{{ this.post ? $t('Edit Post') : $t('Add New Post') }}</span>
         </div>
 
 
@@ -67,14 +67,17 @@ export default {
                         <small></small></span>
                 </div>
                 <span class="input-group-btn p-l-10">
-                    <button v-if="this.post" style="margin: 0px 10px;" @click="cancelEdit" class="btn btn-danger f-s-12 rounded-corner">
-                        Cancel
+                    <button v-if="this.post" style="margin: 0px 10px;" @click="cancelEdit"
+                        class="btn btn-danger f-s-12 rounded-corner">
+                        {{ $t('Cancel') }}
                     </button>
-                    <button v-if="this.post" @click="submitEdit()" class="btn btn-primary f-s-12 rounded-corner" type="button">
-                        Save Changes
+                    <button v-if="this.post" @click="submitEdit()" class="btn btn-primary f-s-12 rounded-corner"
+                        type="button">
+                        {{ $t('Save Changes') }}
                     </button>
-                    <button v-if="!this.post" @click="submit()" class="btn btn-primary f-s-12 rounded-corner" type="button">
-                        POST
+                    <button v-if="!this.post" @click="submit()" class="btn btn-primary f-s-12 rounded-corner"
+                        type="button">
+                        {{ $t('POST') }}
                     </button>
                 </span>
             </div>

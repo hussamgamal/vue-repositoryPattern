@@ -25,9 +25,9 @@ export default {
     <div class="timeline-footer">
         <a @click="like(post.id)" href="javascript:;" class="m-r-15 text-inverse-lighter"><i
                 class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i>
-            {{ post.is_liked ? 'Unlike' : 'Like' }}</a>
+            {{ post.is_liked ? $t('Unlike') : $t('Like') }}</a>
         <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-comments fa-fw fa-lg m-r-3"></i>
-            Comment</a>
+            {{ $t("Comment") }}</a>
         <!-- <a href="javascript:;" class="m-r-15 text-inverse-lighter"><i class="fa fa-share fa-fw fa-lg m-r-3"></i>
             Share</a> -->
     </div>

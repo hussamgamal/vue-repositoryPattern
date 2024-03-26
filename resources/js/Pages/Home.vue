@@ -1,5 +1,5 @@
 <script>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import AppLayout from '@/Layouts/AppLayout.vue';
 import PostBox from '../Components/Post/Box.vue';
 import AddPost from '../Components/Post/Form.vue';
 import { Head } from '@inertiajs/vue3';
@@ -18,7 +18,7 @@ export default {
         }
     },
     components: {
-        AuthenticatedLayout,
+        AppLayout,
         PostBox,
         Head,
         AddPost
@@ -53,7 +53,7 @@ export default {
 
     <Head title="Dashboard" />
 
-    <AuthenticatedLayout>
+    <AppLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Timeline</h2>
         </template>
@@ -67,7 +67,7 @@ export default {
                         <div class="tab-pane fade active show" id="profile-post">
 
                             <ul class="timeline">
-                                <AddPost @newpost="addNewPosts"></AddPost>
+                                <AddPost v-if="$page.props.auth.user" @newpost="addNewPosts"></AddPost>
                                 <PostBox v-for="post in posts.data" :key="post.id" :post="post">
                                 </PostBox>
                                 <!-- <li v-for="post in this.posts.data">{{  post.content  }}</li> -->
@@ -80,5 +80,5 @@ export default {
                 </div>
             </div>
         </div>
-    </AuthenticatedLayout>
+    </AppLayout>
 </template>

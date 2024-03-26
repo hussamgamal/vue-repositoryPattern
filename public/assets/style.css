@@ -770,3 +770,12 @@ select.form-control:not([size]):not([multiple]) {
     align-items: center;
     margin: 0px 5px;
 }
+.facebook-btn{
+    margin: 10px;
+}
+.facebook-btn a {
+    background: rgb(8, 102, 255);
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+}
