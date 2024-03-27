@@ -49,4 +49,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+
+    public function getImageAttribute($img)
+    {
+        return $img ? url($img) : url('assets/images/user.jpg');
+    }
 }

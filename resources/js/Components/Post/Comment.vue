@@ -64,7 +64,7 @@ export default {
     </div>
     <div v-if="post.comments_count" style="margin: 10px;display: flex;justify-content: space-between;">
         <b>{{ $t("Comments") }}</b>
-        <a href="javascript:;" @click="showDeleteChecks()">
+        <a v-if="$page.props.auth.user && $page.props.auth.user.id == post.user.id" href="javascript:;" @click="showDeleteChecks()">
             {{ showDeleteCheck ? $t('Cancel Delete') : $t('Delete Comment') }}
         </a>
         <a v-if="showDeleteCheck" href="javascript:;" @click="deleteComments(post.id)">{{ $t("Delete Checked Comment")

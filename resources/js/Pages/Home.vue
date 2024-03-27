@@ -51,7 +51,7 @@ export default {
 
 <template>
 
-    <Head title="Dashboard" />
+    <Head title="Home" />
 
     <AppLayout>
         <template #header>
